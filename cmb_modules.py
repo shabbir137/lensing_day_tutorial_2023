@@ -290,7 +290,7 @@ def average_N_spectra(spectra,N_spectra,N_ells):
     
     return(avgSpectra,rmsSpectra)
 
-def calculate_2d_spectrum(Map,delta_ell,ell_max,pix_size,N,Map2=None):
+def calculate_2d_spectrum(Map,Map2,delta_ell,ell_max,pix_size,N):
     "calculates the power spectrum of a 2d map by FFTing, squaring, and azimuthally averaging"
     import matplotlib.pyplot as plt
     # make a 2d ell coordinate system
