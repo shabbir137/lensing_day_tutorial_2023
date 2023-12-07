@@ -290,7 +290,7 @@ def average_N_spectra(spectra,N_spectra,N_ells):
     
     return(avgSpectra,rmsSpectra)
 
-def calculate_2d_spectrum(Map,Map2,delta_ell,ell_max,pix_size,N):
+def calculate_2d_spectrum(Map1,Map2,delta_ell,ell_max,pix_size,N):
     "calculates the power spectrum of a 2d map by FFTing, squaring, and azimuthally averaging"
     import matplotlib.pyplot as plt
     # make a 2d ell coordinate system
@@ -309,7 +309,7 @@ def calculate_2d_spectrum(Map,Map2,delta_ell,ell_max,pix_size,N):
     CL_array = np.zeros(N_bins)
     
     # get the 2d fourier transform of the map
-    FMap = np.fft.ifft2(np.fft.fftshift(Map))
+    FMap = np.fft.ifft2(np.fft.fftshift(Map1))
     if Map2 is None: FMap2 = FMap.copy()
     else: FMap2 = np.fft.ifft2(np.fft.fftshift(Map2))
     
