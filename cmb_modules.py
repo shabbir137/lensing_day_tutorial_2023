@@ -61,24 +61,33 @@ def make_map(N,pix_size,ell,DlTT):
     return(CMB_T)
 ###############################
 
-def Plot_Map(Map_to_Plot,c_min=None,c_max=None,X_width=None,Y_width=None, unit=None):
+def Plot_Map(Map_to_Plot,
+             c_min=None,
+             c_max=None,
+             X_width=None,
+             Y_width=None,
+             unit='temperature [uk]',
+             title=None):
     from mpl_toolkits.axes_grid1 import make_axes_locatable
     print("map mean:",np.mean(Map_to_Plot),"map rms:",np.std(Map_to_Plot))
     plt.gcf().set_size_inches(10, 10)
     im = plt.imshow(Map_to_Plot, interpolation='bilinear', origin='lower',cmap=cm.RdBu_r)
     im.set_clim(c_min,c_max)
+    plt.ylabel('angle $[^\circ]$')
+    plt.xlabel('angle $[^\circ]$')
+
     ax=plt.gca()
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     
     cbar = plt.colorbar(im, cax=cax)
-    #cbar = plt.colorbar()
     im.set_extent([0,X_width,0,Y_width])
-    plt.ylabel('angle $[^\circ]$')
-    plt.xlabel('angle $[^\circ]$')
     if unit:
         cbar.set_label('%s'%(unit), rotation=270)
     
+    if title:
+        plt.suptitle(title, y=0.9)
+
     plt.show()
     return(0)
 ###############################
@@ -86,13 +95,13 @@ def Plot_Map(Map_to_Plot,c_min=None,c_max=None,X_width=None,Y_width=None, unit=N
 
 def Poisson_source_component(N,pix_size,Number_of_Sources,Amplitude_of_Sources):
     "makes a realization of a naive Poisson-distributed point source map"
-    PSMap = np.zeros([np.int(N),np.int(N)])
+    PSMap = np.zeros([int(N),int(N)])
     i = 0
-    print('Number of sources required: ', Number_of_Sources)
+    # print('Number of sources required: ', Number_of_Sources)
     
     while (i < int(Number_of_Sources)):
-        pix_x = np.int(N*np.random.rand())
-        pix_y = np.int(N*np.random.rand())
+        pix_x = int(N*np.random.rand())
+        pix_y = int(N*np.random.rand())
         PSMap[pix_x,pix_y] += np.random.poisson(Amplitude_of_Sources)
         i = i + 1
 
@@ -121,8 +130,8 @@ def SZ_source_component(N,pix_size,Number_of_SZ_Clusters,Mean_Amplitude_of_SZ_Cl
     # make a distribution of point sources with varying amplitude
     i = 0
     while (i < Number_of_SZ_Clusters):
-        pix_x = np.int(N*np.random.rand())
-        pix_y = np.int(N*np.random.rand() )
+        pix_x = int(N*np.random.rand())
+        pix_y = int(N*np.random.rand() )
         pix_amplitude = np.random.exponential(Mean_Amplitude_of_SZ_Clusters)*(-1.)
         SZcat[0,i] = pix_x
         SZcat[1,i] = pix_y
