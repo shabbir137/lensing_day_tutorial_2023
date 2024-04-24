@@ -70,7 +70,7 @@ def Plot_Map(Map_to_Plot,
              title=None):
     from mpl_toolkits.axes_grid1 import make_axes_locatable
     print("map mean:",np.mean(Map_to_Plot),"map rms:",np.std(Map_to_Plot))
-    plt.gcf().set_size_inches(10, 10)
+    plt.gcf().set_size_inches(X_width, Y_width)   
     im = plt.imshow(Map_to_Plot, interpolation='bilinear', origin='lower',cmap=cm.RdBu_r)
     im.set_clim(c_min,c_max)
     plt.ylabel('angle $[^\circ]$')
